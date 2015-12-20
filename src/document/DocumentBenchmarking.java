@@ -3,6 +3,7 @@ package document;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.util.concurrent.TimeUnit;
 
 /** A class for timing the EfficientDocument and BasicDocument classes
  * 
@@ -24,11 +25,11 @@ public class DocumentBenchmarking {
 		
 	    // The amount of characters to increment each step
 	    // You can play around with this
-		int increment = 20000;
+		int increment = 10000;
 
 		// The number of steps to run.  
 		// You can play around with this.
-		int numSteps = 20;
+		int numSteps = 40;
 		
 		// THe number of characters to start with. 
 		// You can play around with this.
@@ -58,9 +59,24 @@ public class DocumentBenchmarking {
 			 * 6. Print out the time it took to complete the loop in step 5 
 			 *      (on the same line as the first print statement) followed by a newline (\n) 
 			 */  
+			 System.out.print(numToCheck + "\t");
+			 String charsRead = getStringFromFile(textfile, numToCheck);
+			 long startTime = System.nanoTime();
+			 for (int i = 0; i < trials; i++) {
+				 BasicDocument basicDocument = new BasicDocument(charsRead);
+				 basicDocument.getFleschScore();
+			 }
+			 float totalTime = (System.nanoTime() - startTime)/1000000000f;
+			 System.out.print(totalTime + "\t");
 			 
+			 startTime = System.nanoTime();
+			 for (int i = 0; i < trials; i++) {
+				 EfficientDocument efficientDocument = new EfficientDocument(charsRead);
+				 efficientDocument.getFleschScore();
+			 }
+			 totalTime = (System.nanoTime() - startTime)/1000000000f;
+			 System.out.print(totalTime + "\n");
 		}
-	
 	}
 	
 	/** Get a specified number of characters from a text file
