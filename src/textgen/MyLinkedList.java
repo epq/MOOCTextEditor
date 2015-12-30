@@ -164,11 +164,15 @@ public class MyLinkedList<E> extends AbstractList<E> {
 
 		// removing the tail
 		if (index == size - 1) {
-			tail.next = null;
+			// new last node is the second last node
+			LLNode<E> newLast = tail.prev.prev;
+			newLast.next = tail;
+			tail.prev = newLast;
 			size--;
 			return removedElement;
 		}
 
+		// removing any other node between head and tail
 		LLNode<E> current = head;
 		for (int i = 0; i <= index; i++) {
 			if (i == index) {
@@ -215,7 +219,6 @@ public class MyLinkedList<E> extends AbstractList<E> {
 }
 
 // package level class, does not need to be public
-
 class LLNode<E> {
 	// <E> is a type parameter; type can be passed in when a ListNode is created
 	// List structure is generic and can be held with any type of data
@@ -240,11 +243,5 @@ class LLNode<E> {
 		this.prev = prev;
 		this.next = null;
 	}
-
-	// @Override
-	// public String toString() {
-	// return "LLNode [prev=" + prev + ", next=" + next + ", data=" + data +
-	// "]";
-	// }
 
 }
