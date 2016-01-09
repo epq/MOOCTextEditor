@@ -9,9 +9,9 @@ import java.util.Set;
  *
  */
 class TrieNode {
-	private HashMap<Character, TrieNode> children; 
-	private String text;  // Maybe omit for space
-	private boolean isWord;
+	private HashMap<Character, TrieNode> children; // could use an array, but most letters aren't used, so that would be a waste of space.
+	private String text;  // Maybe omit for space. Only needed if node represents a word.
+	private boolean isWord; // does this node represent a complete word?
 	
 	/** Create a new TrieNode */
 	public TrieNode()
